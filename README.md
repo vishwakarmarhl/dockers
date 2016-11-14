@@ -1,5 +1,5 @@
 
-# dockers repository
+# Dockers repository
 Docker files for various container configuration
 
 # Use the Docker Hub for this
@@ -11,7 +11,7 @@ $ docker build -t vishwakarmarhl/ubunitydesk:v01 . -f DockerFile
 $ docker run -it -p 53022:22 -p 53023:5900 -p 53021:80 vishwakarmarhl/ubunitydesk:v01 /bin/bash
 $ docker-machine ls
 
-# Run AAH & VNC Server for provisioning access to this environment from outside
+# Run SSH & VNC Server for provisioning access to this environment from outside
 $ service ssh restart
 $ export USER=crusader
 $ vncserver -geometry 1440x900 -rfbport 5900
