@@ -1,0 +1,42 @@
+#
+# Ubuntu Desktop Dockerfile
+#
+# 
+#
+
+# Pull base image.
+FROM ubuntu:16.04
+MAINTAINER Rahul Vishwakarma <vishwakarma.rhl@gmail.com>
+
+# Root user installs desktop server.
+RUN echo "Install desktop on top of ubuntu image"
+
+RUN \
+	DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y software-properties-common
+RUN \
+	DEBIAN_FRONTEND=noninteractive apt-add-repository multiverse
+RUN \
+  	DEBIAN_FRONTEND=noninteractive apt-get install -y xubuntu-desktop
+RUN \
+  	DEBIAN_FRONTEND=noninteractive apt-get install -y sudo tightvncserver x11vnc xfonts-base vim openssh-server build-essential
+RUN \
+  	service ssh restart
+
+# Define working directory
+RUN useradd -m crusader && echo "crusader:crusader" | chpasswd && adduser crusader sudo
+
+# Install R and RShiny Server
+
+USER crusader
+WORKDIR /home/crusader
+
+# Do this manually to run VNC on this machine
+# RUN vncserver -geometry 1440x900 -rfbport 5900
+
+# Define default command.
+CMD ["bash"]
+
+# Expose ports.
+EXPOSE 52022:22
+EXPOSE 52023:5900
+EXPOSE 52021:80
